@@ -1,14 +1,35 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling >= 1.27.0"]
 build-backend = "hatchling.build"
 
 [project]
 name = "py-hardware"
-version = "0.1.0"
+version = "0.0.1"
 description = "A hardware simulation framework for Python"
-readme = "README.md"
+
 requires-python = ">=3.10"
 dependencies = []
-dynamic = ["version"]
 
-[tool]
+readme = "README.md"
+
+license = "GPL-3.0-or-later"
+lisence-files = ["LISENCE"]
+
+authors = [{name = "Calvin Zeng", email="calvinzeng3197@gmail.com"}]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14"
+]
+
+[project.urls]
+source = "https://github.com/42-Slices-of-Cheese/py_hardware"
+tracker = "https://github.com/42-Slices-of-Cheese/py_hardware/issues"
