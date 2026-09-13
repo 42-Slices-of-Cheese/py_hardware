@@ -12,7 +12,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip install pytest"
+	"postCreateCommand": "pip install pytest hatch"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
