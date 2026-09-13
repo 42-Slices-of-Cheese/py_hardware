@@ -67,8 +67,10 @@ class Wire:
                     component.update()
 
 class NAND(Component):
+    """NAND Gate with pull downs on the inputs
+    """
     def __init__(self, A: Wire, B: Wire, Y: Wire):
-        """NAND Gate with pull downs on the inputs
+        """Initializes the instance
 
         Args:
             A (Wire): Input wire A
@@ -110,8 +112,10 @@ class NAND(Component):
         self.Y.value = not (self.A.value and self.B.value)
 
 class CBUF(Component):
+    """A controlled buffer with pull downs on OE
+    """
     def __init__(self, A: Wire, OE: Wire, Y: Wire):
-        """A controlled buffer with pull downs on OE
+        """Initializes the instance
 
         Args:
             A (Wire): Input wire

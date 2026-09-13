@@ -1,4 +1,6 @@
 import pytest
+from typing import Any
+
 from py_hardware import *
 
 class DummyComponent(Component):
@@ -17,7 +19,7 @@ class TestWire:
         (True,  True),
         (None, None),
     ])
-    def test_wireValues(self, a, expected):
+    def test_wireValues(self, a : bool |  None, expected: bool | None) -> None:
         wire = Wire(a)
         assert wire.value == expected
 
@@ -42,33 +44,33 @@ class TestWire:
         assert component_2.update_count == 2
 
     class TestWire_errors:
-        @pytest.mark.parametrize("a, message", [
+        @pytest.mark.parametrize("value, message", [
             (False, "Choose between a hardcoded wire or a free wire."),
             (True, "Choose between a hardcoded wire or a free wire."),
         ])
-        def test_init_wireErrors(self, a: bool, message: str):
+        def test_init_wireErrors(self, value: bool, message: str) -> None:
             with pytest.raises(WireException, match=message):
-                Wire(a, None)
+                Wire(value, None)
 
             with pytest.raises(TypeError, match="Value must be bool or None."):
-                Wire("True", a)
+                Wire("True", value)
 
-        @pytest.mark.parametrize("a, message", [
+        @pytest.mark.parametrize("value, message", [
             (False, "This wire is hardcoded."),
             (True, "This wire is hardcoded."),
             (None, "This wire is hardcoded."),
         ])
-        def test_set_wireErrors(self, a: bool, message: str):
+        def test_set_wireErrors(self, value: bool | None, message: str) -> None:
             wire = Wire(None, True)
         
             with pytest.raises(WireException, match=message):
-                wire.value = a
+                wire.value = value
 
             wire = Wire()
             with pytest.raises(TypeError, match="Value must be bool or None."):
                 wire.value = 1
 
-        def test_wireConnectionError(self):
+        def test_wireConnectionError(self) -> None:
             wire = Wire()
 
             with pytest.raises(WireException, match="Cannot connect non-component objects."):
@@ -85,7 +87,7 @@ class TestNAND:
         (False, None, True),
         (True, None, True),
     ])
-    def test_nandInputs(self, a, b, expected):
+    def test_nandInputs(self, a: bool | None, b: bool | None, expected: str) -> None:
         _a = Wire(a)
         _b = Wire(b)
         _y = Wire()
@@ -103,7 +105,7 @@ class TestNAND:
             (Wire(),  None, Wire(), "Input wire B is missing."),
             (Wire(),  Wire(), None, "Output wire is missing."),
         ])
-        def test_nandComponentError(self, a, b, y, message):
+        def test_nandComponentError(self, a: Wire | None, b: Wire | None, y: Wire | None, message: str) -> None:
             with pytest.raises(ComponentException, match=message):
                 NAND(a, b, y)
 
@@ -116,7 +118,7 @@ class TestNAND:
             (Wire(), 1, 1, "Input wire B is not a wire object."),
             (Wire(), Wire(), 1, "Output wire is not a wire object.")
         ])
-        def test_nandTypeError(self, a, b, y, message):
+        def test_nandTypeError(self, a: Wire | Any, b: Wire | Any, y: Wire | Any, message: str) -> None:
             with pytest.raises(TypeError, match=message):
                 NAND(a, b, y)
 
@@ -132,7 +134,7 @@ class TestCBUF:
         (False, None, None),
         (True, None, None),
     ])
-    def test_cbufInputs(self, a, oe, expected):
+    def test_cbufInputs(self, a: bool | None, oe: bool | None, expected: str) -> None:
         _a = Wire(a)
         _oe = Wire(oe)
         _y = Wire()
@@ -140,7 +142,7 @@ class TestCBUF:
 
         assert _y.value == expected
 
-    def test_cbufBusState(self):
+    def test_cbufBusState(self) -> None:
         _a = Wire()
         _oe = Wire()
         _y = Wire()
@@ -163,7 +165,7 @@ class TestCBUF:
                     (Wire(),  None, Wire(), "Output enable wire is missing."),
                     (Wire(),  Wire(), None, "Output wire is missing."),
                 ])
-        def test_cbufComponentError(self, a, oe, y, message):
+        def test_cbufComponentError(self, a: Wire | None, oe: Wire | None, y: Wire | None, message: str) -> None:
             with pytest.raises(ComponentException, match=message):
                     CBUF(a, oe, y)
 
@@ -176,7 +178,7 @@ class TestCBUF:
             (Wire(), 1, 1, "Output enable wire is not a wire object."),
             (Wire(), Wire(), 1, "Output wire is not a wire object.")
         ])
-        def test_cubfTypeError(self, a, oe, y, message):
+        def test_cubfTypeError(self, a: Wire | Any, oe: Wire | Any, y: Wire | Any, message: str) -> None:
             with pytest.raises(TypeError, match=message):
                 CBUF(a, oe, y)
 
