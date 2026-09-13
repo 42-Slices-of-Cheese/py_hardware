@@ -4,8 +4,10 @@ class Component:
     pass
 
 class Wire:
+    """A wire that can be hardcoded and/or set to high impedance.
+    """
     def __init__(self, value: bool | None = None, hardcode: bool = False) -> None:
-        """A wire that can be hardcoded and/or set to high impedance.
+        """Initializes the instance with a starting value 
 
         Args:
             value (bool | None, optional): The state of the wire. Defaults to None.
@@ -14,6 +16,9 @@ class Wire:
         Raises:
             TypeError: If value is not a bool or None
             WireException: If an attempt to set a hardcoded wire or hardcode mode is not set.
+
+        Note:
+            A value of None represents high impedance.
         """
         if not isinstance(value, bool):
             if value is not None:
@@ -48,7 +53,7 @@ class Wire:
 
         self.update()
 
-    def connect(self, components) -> None:
+    def connect(self, components: Component) -> None:
         if not isinstance(components, list):
             components = [components]
 
