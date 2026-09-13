@@ -114,7 +114,7 @@ class CBUF(Component):
             Y (Wire): Output wire
 
         Raises:
-            ComponentException: When input, output, and output enble wires are missing.
+            ComponentException: When input, output, and output enable wires are missing.
         """
         if A is None:
             raise ComponentException("Input wire is missing.")

@@ -21,7 +21,7 @@ class TestWire:
         wire = Wire(a)
         assert wire.value == expected
 
-    def test_wirePropgration(self):
+    def test_wirePropagation(self):
         wire = Wire()
         component_1 = DummyComponent()
         component_2 = DummyComponent()
