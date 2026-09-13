@@ -181,5 +181,3 @@ class TestCBUF:
         def test_cubfTypeError(self, a: Wire | Any, oe: Wire | Any, y: Wire | Any, message: str) -> None:
             with pytest.raises(TypeError, match=message):
                 CBUF(a, oe, y)
-
-
