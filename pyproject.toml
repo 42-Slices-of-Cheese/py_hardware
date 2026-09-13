@@ -1,14 +1,14 @@
 [build-system]
-requires = ["setuptools>=61"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
-name = "hardware-sim"
+name = "py-hardware"
 version = "0.1.0"
-description = "A general-purpose hardware simulation framework"
+description = "A hardware simulation framework for Python"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {file = "LICENSE"}
+dependencies = []
+dynamic = ["version"]
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool]
