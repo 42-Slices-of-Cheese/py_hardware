@@ -94,7 +94,7 @@ class TestNAND:
         assert _y.value == expected
 
     class TestNAND_errors:
-        @pytest.mark.parametrize("a, b, c, message", [
+        @pytest.mark.parametrize("a, b, y, message", [
             (None, None, None, "Input wire A is missing."),
             (None,  None, Wire(), "Input wire A is missing."),
             (None,  Wire(), None, "Input wire A is missing."),
@@ -103,11 +103,11 @@ class TestNAND:
             (Wire(),  None, Wire(), "Input wire B is missing."),
             (Wire(),  Wire(), None, "Output wire is missing."),
         ])
-        def test_nandComponentError(self, a, b, c, message):
+        def test_nandComponentError(self, a, b, y, message):
             with pytest.raises(ComponentException, match=message):
-                NAND(a, b, c)
+                NAND(a, b, y)
 
-        @pytest.mark.parametrize("a, b, c, message", [
+        @pytest.mark.parametrize("a, b, y, message", [
             (1, Wire(), Wire(), "Input wire A is not a wire object."),
             (1, 1, Wire(), "Input wire A is not a wire object."),
             (1, 1, 1, "Input wire A is not a wire object."),
@@ -116,9 +116,9 @@ class TestNAND:
             (Wire(), 1, 1, "Input wire B is not a wire object."),
             (Wire(), Wire(), 1, "Output wire is not a wire object.")
         ])
-        def test_nandTypeError(self, a, b, c, message):
+        def test_nandTypeError(self, a, b, y, message):
             with pytest.raises(TypeError, match=message):
-                NAND(a, b, c)
+                NAND(a, b, y)
 
 class TestCBUF:
     @pytest.mark.parametrize("a, oe, expected", [
@@ -154,4 +154,30 @@ class TestCBUF:
         assert not test.is_driving
 
     class TestCBUF_errors:
-        pass
+        @pytest.mark.parametrize("a, oe, y, message", [
+                    (None, None, None, "Input wire is missing."),
+                    (None,  None, Wire(), "Input wire is missing."),
+                    (None,  Wire(), None, "Input wire is missing."),
+                    (None,  Wire(), Wire(), "Input wire is missing."),
+                    (Wire(), None, None, "Output enable wire is missing."),
+                    (Wire(),  None, Wire(), "Output enable wire is missing."),
+                    (Wire(),  Wire(), None, "Output wire is missing."),
+                ])
+        def test_cbufComponentError(self, a, oe, y, message):
+            with pytest.raises(ComponentException, match=message):
+                    CBUF(a, oe, y)
+
+        @pytest.mark.parametrize("a, oe, y, message", [
+            (1, Wire(), Wire(), "Input wire is not a wire object."),
+            (1, 1, Wire(), "Input wire is not a wire object."),
+            (1, 1, 1, "Input wire is not a wire object."),
+            (1, Wire(), 1, "Input wire is not a wire object."),
+            (Wire(), 1, Wire(), "Output enable wire is not a wire object."),
+            (Wire(), 1, 1, "Output enable wire is not a wire object."),
+            (Wire(), Wire(), 1, "Output wire is not a wire object.")
+        ])
+        def test_cubfTypeError(self, a, oe, y, message):
+            with pytest.raises(TypeError, match=message):
+                CBUF(a, oe, y)
+
+
