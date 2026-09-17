@@ -121,7 +121,7 @@ class CBUF(Component):
     """A controlled buffer with pull downs on OE
     """
 
-    __slots__ = "A", "OE", "Y"
+    __slots__ = "A", "OE", "Y", "is_driving"
 
     def __init__(self, A: Wire, OE: Wire, Y: Wire):
         """Initializes the instance
