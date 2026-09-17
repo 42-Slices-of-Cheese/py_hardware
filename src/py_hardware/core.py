@@ -6,6 +6,9 @@ class Component:
 class Wire:
     """A wire that can be hardcoded and/or set to high impedance.
     """
+
+    __slots__ = "_value", "hardcode", "connections"
+
     def __init__(self, value: bool | None = None, hardcode: bool = False) -> None:
         """Initializes the instance with a starting value 
 
@@ -69,6 +72,9 @@ class Wire:
 class NAND(Component):
     """NAND Gate with pull downs on the inputs
     """
+
+    __slots__ = "A", "B", "Y"
+
     def __init__(self, A: Wire, B: Wire, Y: Wire):
         """Initializes the instance
 
@@ -114,6 +120,9 @@ class NAND(Component):
 class CBUF(Component):
     """A controlled buffer with pull downs on OE
     """
+
+    __slots__ = "A", "OE", "Y"
+
     def __init__(self, A: Wire, OE: Wire, Y: Wire):
         """Initializes the instance
 
