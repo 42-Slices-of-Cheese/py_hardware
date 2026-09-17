@@ -14,14 +14,14 @@ class DummyComponent(Component):
         self.update_count += 1
 
 class TestWire:
-    @pytest.mark.parametrize("a, expected", [
-        (False, False),
-        (True,  True),
-        (None, None),
+    @pytest.mark.parametrize("a", [
+        (False),
+        (True),
+        (None),
     ])
-    def test_wireValues(self, a : bool |  None, expected: bool | None) -> None:
+    def test_wireValues(self, a : bool |  None) -> None:
         wire = Wire(a)
-        assert wire.value == expected
+        assert wire.value == a
 
     def test_wirePropagation(self):
         wire = Wire()
@@ -77,22 +77,29 @@ class TestWire:
                 wire.connect(1)
 
 class TestNAND:
-    @pytest.mark.parametrize("a, b, expected", [
-        (False, False, True),
-        (False, True,  True),
-        (True,  False, True),
-        (True,  True,  False),
-        (None, False, True),
-        (None, True, True),
-        (False, None, True),
-        (True, None, True),
+    @pytest.mark.parametrize("a, b", [
+        (False, False),
+        (False, True),
+        (True,  False),
+        (True,  True),
+        (None, False),
+        (None, True),
+        (False, None),
+        (True, None),
     ])
-    def test_nandInputs(self, a: bool | None, b: bool | None, expected: str) -> None:
+    def test_nandInputs(self, a: bool | None, b: bool | None) -> None:
         _a = Wire(a)
         _b = Wire(b)
         _y = Wire()
         NAND(_a, _b, _y)
 
+        if(a is None):
+            a = False
+
+        if(b is None):
+            b = False
+
+        expected = not (a and b)
         assert _y.value == expected
 
     class TestNAND_errors:
