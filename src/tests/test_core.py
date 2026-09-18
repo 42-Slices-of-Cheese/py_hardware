@@ -1,7 +1,8 @@
 import pytest
 from typing import Any
 
-from py_hardware import Component, Wire, NAND, CBUF, ComponentException, WireException
+from py_hardware import Component, Wire, NAND, CBUF
+from py_hardware.exceptions import ComponentException, WireException
 
 class DummyComponent(Component):
     """A dummy component to test wire connections

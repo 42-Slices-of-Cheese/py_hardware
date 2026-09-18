@@ -1,4 +1,14 @@
 from .core import Wire, NAND, CBUF, Component
-from .exceptions import WireException, ComponentException
+from .gates import AND, OR, NOR, XOR, XNOR, NOT, INVCBUF
 
-__all__ = ["Wire", "NAND", "CBUF", "WireException", "ComponentException", "Component"]
+__all__ = ["Wire",
+           "NAND",
+           "CBUF",
+           "Component",
+           "AND",
+           "OR",
+           "NOR",
+           "XOR",
+           "XNOR",
+           "NOT",
+           "INVCBUF"]
