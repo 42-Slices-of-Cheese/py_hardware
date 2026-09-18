@@ -84,7 +84,7 @@ class NAND(Component):
             Y (Wire): Output wire
 
         Raises:
-            ComponentException: If A, B, C is missing
+            ComponentException: If A, B, or C are missing
             TypeError: If A, B, C is not a wire
         """
         if A is None:
@@ -133,6 +133,7 @@ class CBUF(Component):
 
         Raises:
             ComponentException: When input, output, and output enable wires are missing.
+            TypeError: If A, OE, Y is not a wire
         """
         if A is None:
             raise ComponentException("Input wire is missing.")
