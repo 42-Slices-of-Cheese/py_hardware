@@ -3,6 +3,7 @@ from typing import Any
 
 from py_hardware import Component, Wire, NAND, CBUF
 from py_hardware.exceptions import ComponentException, WireException
+from .cases import A_B_Y_COMPONENT_ERROR_CASES, A_B_Y_TYPE_ERROR_CASES, A_B_Y_INPUT_CASES
 
 class DummyComponent(Component):
     """A dummy component to test wire connections
@@ -78,16 +79,7 @@ class TestWire:
                 wire.connect(1)
 
 class TestNAND:
-    @pytest.mark.parametrize("a, b", [
-        (False, False),
-        (False, True),
-        (True,  False),
-        (True,  True),
-        (None, False),
-        (None, True),
-        (False, None),
-        (True, None),
-    ])
+    @pytest.mark.parametrize("a, b", A_B_Y_INPUT_CASES)
     def test_nandInputs(self, a: bool | None, b: bool | None) -> None:
         _a = Wire(a)
         _b = Wire(b)
@@ -104,28 +96,12 @@ class TestNAND:
         assert _y.value == expected
 
     class TestNAND_errors:
-        @pytest.mark.parametrize("a, b, y, message", [
-            (None, None, None, "Input wire A is missing."),
-            (None,  None, Wire(), "Input wire A is missing."),
-            (None,  Wire(), None, "Input wire A is missing."),
-            (None,  Wire(), Wire(), "Input wire A is missing."),
-            (Wire(), None, None, "Input wire B is missing."),
-            (Wire(),  None, Wire(), "Input wire B is missing."),
-            (Wire(),  Wire(), None, "Output wire is missing."),
-        ])
+        @pytest.mark.parametrize("a, b, y, message", A_B_Y_COMPONENT_ERROR_CASES)
         def test_nandComponentError(self, a: Wire | None, b: Wire | None, y: Wire | None, message: str) -> None:
             with pytest.raises(ComponentException, match=message):
                 NAND(a, b, y)
 
-        @pytest.mark.parametrize("a, b, y, message", [
-            (1, Wire(), Wire(), "Input wire A is not a wire object."),
-            (1, 1, Wire(), "Input wire A is not a wire object."),
-            (1, 1, 1, "Input wire A is not a wire object."),
-            (1, Wire(), 1, "Input wire A is not a wire object."),
-            (Wire(), 1, Wire(), "Input wire B is not a wire object."),
-            (Wire(), 1, 1, "Input wire B is not a wire object."),
-            (Wire(), Wire(), 1, "Output wire is not a wire object.")
-        ])
+        @pytest.mark.parametrize("a, b, y, message", A_B_Y_TYPE_ERROR_CASES)
         def test_nandTypeError(self, a: Wire | Any, b: Wire | Any, y: Wire | Any, message: str) -> None:
             with pytest.raises(TypeError, match=message):
                 NAND(a, b, y)
@@ -165,14 +141,14 @@ class TestCBUF:
 
     class TestCBUF_errors:
         @pytest.mark.parametrize("a, oe, y, message", [
-                    (None, None, None, "Input wire is missing."),
-                    (None,  None, Wire(), "Input wire is missing."),
-                    (None,  Wire(), None, "Input wire is missing."),
-                    (None,  Wire(), Wire(), "Input wire is missing."),
-                    (Wire(), None, None, "Output enable wire is missing."),
-                    (Wire(),  None, Wire(), "Output enable wire is missing."),
-                    (Wire(),  Wire(), None, "Output wire is missing."),
-                ])
+            (None, None, None, "Input wire is missing."),
+            (None,  None, Wire(), "Input wire is missing."),
+            (None,  Wire(), None, "Input wire is missing."),
+            (None,  Wire(), Wire(), "Input wire is missing."),
+            (Wire(), None, None, "Output enable wire is missing."),
+            (Wire(),  None, Wire(), "Output enable wire is missing."),
+            (Wire(),  Wire(), None, "Output wire is missing."),
+        ])
         def test_cbufComponentError(self, a: Wire | None, oe: Wire | None, y: Wire | None, message: str) -> None:
             with pytest.raises(ComponentException, match=message):
                     CBUF(a, oe, y)
