@@ -3,7 +3,12 @@ import pytest
 from typing import Any
 from py_hardware.exceptions import ComponentException
 from py_hardware import Wire, AND, OR, NOR, XOR, XNOR, NOT, INVCBUF
-from .cases import A_B_Y_COMPONENT_ERROR_CASES, A_B_Y_TYPE_ERROR_CASES, A_B_Y_INPUT_CASES, A_Y_INPUT_CASES, A_Y_COMPONENT_ERROR_CASES, A_Y_TYPE_ERROR_CASES
+from .cases import (A_B_Y_COMPONENT_ERROR_CASES, 
+                    A_B_Y_TYPE_ERROR_CASES, 
+                    A_B_Y_INPUT_CASES, 
+                    A_Y_INPUT_CASES, 
+                    A_Y_COMPONENT_ERROR_CASES, 
+                    A_Y_TYPE_ERROR_CASES)
 
 class TestAND:
     @pytest.mark.parametrize("a, b", A_B_Y_INPUT_CASES)
