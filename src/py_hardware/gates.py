@@ -195,6 +195,8 @@ class XOR(Component):
     
 
 class XNOR(Component):
+    """XNOR Gate with pull downs on the inputs
+    """
     __slots__ = "A", "B", "Y"
 
     def __init__(self, A: Wire, B: Wire, Y: Wire):
@@ -240,6 +242,8 @@ class XNOR(Component):
         self.Y.value = not (self.A.value ^ self.B.value)
 
 class NOT(Component):
+    """NOT Gate with a pull down on the input
+    """
     __slots__ = "A", "Y"
     
     def __init__(self, A: Wire, Y: Wire):
@@ -276,6 +280,9 @@ class NOT(Component):
         self.Y.value = not self.A.value
 
 class INVCBUF(Component):
+    """A controlled buffer with pull downs on OE
+    """
+    
     __slots__ = "A", "OE", "Y", "is_driving"
 
     def __init__(self, A: Wire, OE: Wire, Y: Wire):
