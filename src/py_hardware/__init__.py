@@ -1,5 +1,6 @@
 from .core import Wire, NAND, CBUF, Component
 from .gates import AND, OR, NOR, XOR, XNOR, NOT, INVCBUF
+from .latches import SR_latch
 
 __all__ = ["Wire",
            "NAND",
@@ -11,4 +12,5 @@ __all__ = ["Wire",
            "XOR",
            "XNOR",
            "NOT",
-           "INVCBUF"]
+           "INVCBUF",
+           "SR_latch"]
